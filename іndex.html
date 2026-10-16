@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Викторина: развитие школ менеджмента</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF4F9; --bg2:#F1E9FF; --surface:#FFFFFF; --ink:#4A2C5E; --muted:#8A6E9E; --line:#F3D3E6;
+  --pink:#FF8DBE; --pink-soft:#FFE0EE; --lav:#C9B5FF; --lav-soft:#EFE8FF; --mint:#8EE3C2; --mint-soft:#DDF8EC;
+  --butter:#FFE58F; --peach:#FFC2A8; --sky:#A9DBFF; --berry:#E8578F; --berry-soft:#FFE1EA; --ok:#2FA77A;
+  --face:#4A2C5E; --blush:#FF9CC0;
+  --round:"Comfortaa","Nunito","Segoe UI",Arial,sans-serif;
+  --sans:"Nunito","Segoe UI",Arial,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#2A1F3D; --bg2:#33264B; --surface:#3A2C55; --ink:#FDEFFF; --muted:#CDB6E0; --line:#57437A;
+    --pink-soft:#5A3354; --lav-soft:#47386A; --mint-soft:#24504A; --berry:#FF8AB3; --berry-soft:#5C2D44; --ok:#7BE8BD;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#2A1F3D; --bg2:#33264B; --surface:#3A2C55; --ink:#FDEFFF; --muted:#CDB6E0; --line:#57437A;
+  --pink-soft:#5A3354; --lav-soft:#47386A; --mint-soft:#24504A; --berry:#FF8AB3; --berry-soft:#5C2D44; --ok:#7BE8BD;
+  color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100%;color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.55;
+  background:
+    radial-gradient(circle at 8% 12%, var(--pink-soft) 0 90px, transparent 91px),
+    radial-gradient(circle at 92% 30%, var(--lav-soft) 0 120px, transparent 121px),
+    radial-gradient(circle at 15% 85%, var(--mint-soft) 0 100px, transparent 101px),
+    linear-gradient(180deg,var(--bg),var(--bg2));
+  background-attachment:fixed;}
+.wrap{max-width:720px;margin:0 auto;padding:28px 18px 48px}
+h1,h2{font-family:var(--round);font-weight:700;line-height:1.2;margin:0}
+h1{font-size:clamp(1.8rem,5.5vw,2.6rem)}
+h2{font-size:clamp(1.2rem,3.4vw,1.5rem)}
+p{margin:0}
+button{font:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+
+.card{background:var(--surface);border-radius:28px;padding:28px 24px;box-shadow:0 8px 0 var(--line)}
+
+/* Intro */
+.hero{text-align:center}
+.hero .art{width:180px;height:180px;margin:0 auto 6px;display:block}
+.hero p.lead{margin:14px auto 0;color:var(--muted);max-width:52ch}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px}
+.chip{padding:6px 14px;border-radius:999px;font-weight:700;font-size:.9rem;color:#4A2C5E}
+.field{margin:26px auto 0;max-width:360px;text-align:left}
+.field label{display:block;font-weight:800;margin-bottom:6px}
+.field input{width:100%;padding:13px 18px;border:2px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit}
+.sources{margin-top:26px;color:var(--muted);font-size:.9rem}
+
+.btn{padding:14px 30px;border-radius:999px;border:none;background:var(--pink);color:#fff;font-weight:800;font-size:1.05rem;box-shadow:0 5px 0 var(--berry);transition:transform .12s, box-shadow .12s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--berry)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--berry)}
+.actions{display:flex;justify-content:center;margin-top:24px}
+
+/* Progress */
+.progress{display:flex;gap:6px;margin:4px 0 14px}
+.dot{flex:1;height:12px;border-radius:999px;background:var(--surface);border:2px solid var(--line)}
+.dot.current{background:var(--butter);border-color:var(--butter)}
+.dot.ok{background:var(--mint);border-color:var(--mint)}
+.dot.bad{background:var(--pink);border-color:var(--pink)}
+.meta{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-weight:700;font-size:.95rem;margin-bottom:14px}
+
+.qhead{display:flex;gap:18px;align-items:center}
+.qhead .art{flex:0 0 110px;width:110px;height:110px}
+.school{display:inline-block;padding:4px 14px;border-radius:999px;background:var(--lav-soft);color:var(--ink);font-weight:800;font-size:.9rem;margin-bottom:8px}
+.options{display:grid;gap:12px;margin-top:22px}
+.opt{display:flex;gap:14px;align-items:center;text-align:left;width:100%;padding:14px 16px;border:2px solid var(--line);border-radius:20px;background:var(--surface);color:var(--ink);transition:transform .12s,border-color .12s}
+.opt:hover:not(:disabled){border-color:var(--pink);transform:translateY(-2px)}
+.opt .letter{flex:0 0 38px;height:38px;border-radius:50%;display:grid;place-items:center;font-family:var(--round);font-weight:700;color:#4A2C5E}
+.opt:nth-child(1) .letter{background:var(--pink)}
+.opt:nth-child(2) .letter{background:var(--lav)}
+.opt:nth-child(3) .letter{background:var(--mint)}
+.opt:nth-child(4) .letter{background:var(--butter)}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--mint);background:var(--mint-soft)}
+.opt.wrong{border-color:var(--pink);background:var(--berry-soft)}
+.opt.faded{opacity:.5}
+
+.hint-btn{margin-top:16px;border:2px dashed var(--lav);background:transparent;color:var(--ink);border-radius:999px;padding:8px 18px;font-weight:700}
+.hint{margin-top:12px;padding:12px 16px;border-radius:18px;background:var(--lav-soft);color:var(--ink)}
+.feedback{margin-top:20px;padding:16px 18px;border-radius:20px;background:var(--mint-soft)}
+.feedback.bad{background:var(--berry-soft)}
+.feedback strong{display:block;margin-bottom:4px;font-family:var(--round);font-size:1.1rem}
+.feedback.good strong{color:var(--ok)}
+.feedback.bad strong{color:var(--berry)}
+
+/* Result */
+.result{text-align:center}
+.result .art{width:170px;height:170px;margin:0 auto}
+.score{font-family:var(--round);font-size:clamp(3.2rem,13vw,5rem);font-weight:700;line-height:1;margin:10px 0 6px;color:var(--berry)}
+.score span{font-size:.42em;color:var(--muted)}
+.verdict{color:var(--muted);max-width:46ch;margin:0 auto}
+.review{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:10px;text-align:left}
+.review li{padding:12px 16px;border-radius:18px;background:var(--mint-soft)}
+.review li.bad{background:var(--berry-soft)}
+.review .q{font-weight:800}
+.review .a{margin-top:4px;font-size:.95rem}
+.hidden{display:none!important}
+
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero .art{animation:bob 3s ease-in-out infinite}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+.pop{animation:pop .4s ease-out}
+@media (max-width:540px){
+  body{font-size:17px}
+  .card{padding:22px 16px;border-radius:24px}
+  .qhead{flex-direction:column;align-items:flex-start;gap:8px}
+  .qhead .art{width:90px;height:90px;flex-basis:90px}
+}
+@media (prefers-reduced-motion: reduce){.hero .art,.pop{animation:none}.opt,.btn{transition:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <noscript><div class="card" style="margin-bottom:18px;background:var(--butter);color:#4A2C5E;font-weight:700;text-align:center">Викторина не запустится в режиме предпросмотра файла. Откройте её по ссылке в браузере (Safari, Chrome) — тогда кнопки заработают.</div></noscript>
+
+  <section id="intro" class="card hero">
+    <div id="heroArt"></div>
+    <h1>Развитие подходов, направлений и школ менеджмента</h1>
+    <p class="lead">12 вопросов о том, как люди учились управлять: от секундомера Тейлора до всеобщего управления качеством. К каждому вопросу есть подсказка, а после ответа — пояснение.</p>
+    <div class="chips">
+      <span class="chip" style="background:#FFC2DD">Тейлор</span>
+      <span class="chip" style="background:#DCCFFF">Файоль</span>
+      <span class="chip" style="background:#BDF0DA">Мэйо</span>
+      <span class="chip" style="background:#FFEBA8">Маслоу</span>
+      <span class="chip" style="background:#C6E6FF">Деминг</span>
+    </div>
+    <div class="field">
+      <label for="name">Как вас зовут?</label>
+      <input id="name" type="text" autocomplete="name" placeholder="Петр Петрович">
+    </div>
+    <div class="actions"><button class="btn" id="startBtn">Начать викторину</button></div>
+    <p class="sources">По материалам учебников: Р. Дафт «Менеджмент»; М. Мескон, М. Альберт, Ф. Хедоури «Основы менеджмента».</p>
+  </section>
+
+  <section id="quiz" class="hidden">
+    <div class="progress" id="progress" aria-hidden="true"></div>
+    <div class="meta"><span>Вопрос <span id="qnum">1</span> из <span id="qtotal">12</span></span><span id="eraText"></span></div>
+    <div class="card">
+      <div class="qhead">
+        <div id="qArt"></div>
+        <div>
+          <span class="school" id="school"></span>
+          <h2 id="prompt"></h2>
+        </div>
+      </div>
+      <div class="options" id="options" role="group" aria-label="Варианты ответа"></div>
+      <button class="hint-btn" id="hintBtn">Подсказка</button>
+      <p class="hint hidden" id="hint"></p>
+      <div class="feedback hidden" id="feedback" aria-live="polite"><strong id="fbTitle"></strong><span id="fbText"></span></div>
+      <div class="actions"><button class="btn hidden" id="nextBtn">Дальше</button></div>
+    </div>
+  </section>
+
+  <section id="result" class="card result hidden">
+    <div id="resArt"></div>
+    <h1 id="resTitle">Ваш результат</h1>
+    <p class="score" id="score"></p>
+    <p class="verdict" id="verdict"></p>
+    <ul class="review" id="review"></ul>
+    <div class="actions"><button class="btn" id="againBtn">Пройти ещё раз</button></div>
+  </section>
+
+</main>
+<script>
+/* ---------- Kawaii illustrations (inline SVG) ---------- */
+const INK="#4A2C5E", BL="#FF9CC0";
+function face(cx,cy,s=1,mood="happy"){
+  const e=6*s, d=11*s;
+  let mouth;
+  if(mood==="happy") mouth=`<path d="M${cx-5*s} ${cy+5*s} q${5*s} ${6*s} ${10*s} 0" stroke="${INK}" stroke-width="${2.6*s}" fill="none" stroke-linecap="round"/>`;
+  else if(mood==="wow") mouth=`<ellipse cx="${cx}" cy="${cy+7*s}" rx="${3.2*s}" ry="${4*s}" fill="${INK}"/>`;
+  else mouth=`<path d="M${cx-4*s} ${cy+8*s} q${4*s} ${-4*s} ${8*s} 0" stroke="${INK}" stroke-width="${2.6*s}" fill="none" stroke-linecap="round"/>`;
+  return `<circle cx="${cx-d}" cy="${cy}" r="${e/2+1}" fill="${INK}"/><circle cx="${cx+d}" cy="${cy}" r="${e/2+1}" fill="${INK}"/>
+  <circle cx="${cx-d+1.4*s}" cy="${cy-1.6*s}" r="${1.4*s}" fill="#fff"/><circle cx="${cx+d+1.4*s}" cy="${cy-1.6*s}" r="${1.4*s}" fill="#fff"/>
+  <ellipse cx="${cx-d-5*s}" cy="${cy+6*s}" rx="${5*s}" ry="${3*s}" fill="${BL}" opacity=".8"/><ellipse cx="${cx+d+5*s}" cy="${cy+6*s}" rx="${5*s}" ry="${3*s}" fill="${BL}" opacity=".8"/>${mouth}`;
+}
+const spark=(x,y,c="#FFD966",r=6)=>`<path d="M${x} ${y-r} Q${x} ${y} ${x+r} ${y} Q${x} ${y} ${x} ${y+r} Q${x} ${y} ${x-r} ${y} Q${x} ${y} ${x} ${y-r}Z" fill="${c}"/>`;
+const svg=(inner,label)=>`<svg class="art" viewBox="0 0 120 120" role="img" aria-label="${label}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+const STROKE=`stroke="${INK}" stroke-width="3" stroke-linejoin="round"`;
+const ART={
+  stopwatch:()=>svg(`<rect x="52" y="10" width="16" height="12" rx="4" fill="#FF8DBE" ${STROKE}/><circle cx="60" cy="66" r="42" fill="#FFE58F" ${STROKE}/><circle cx="60" cy="66" r="32" fill="#FFF8DB"/>${face(60,66,1.1)}${spark(18,22)}${spark(104,30,"#FF8DBE",5)}`,"Секундомер"),
+  calendar:()=>svg(`<rect x="16" y="22" width="88" height="82" rx="14" fill="#fff" ${STROKE}/><path d="M16 36a14 14 0 0 1 14-14h60a14 14 0 0 1 14 14v8H16z" fill="#FF8DBE" ${STROKE}/><rect x="36" y="12" width="8" height="20" rx="4" fill="#C9B5FF" ${STROKE}/><rect x="76" y="12" width="8" height="20" rx="4" fill="#C9B5FF" ${STROKE}/>${face(60,72,1.1)}${spark(108,96,"#8EE3C2",6)}`,"Календарь"),
+  pyramid:()=>svg(`<path d="M60 14 L108 100 H12 Z" fill="#C9B5FF" ${STROKE}/><path d="M38 60 H82" stroke="${INK}" stroke-width="3"/><path d="M26 80 H94" stroke="${INK}" stroke-width="3" opacity=".25"/>${face(60,74,.9)}<circle cx="60" cy="36" r="7" fill="#FFE58F" ${STROKE}/>${spark(104,24,"#FF8DBE")}`,"Пирамида управления"),
+  folder:()=>svg(`<path d="M12 34a8 8 0 0 1 8-8h26l10 10h44a8 8 0 0 1 8 8v52a8 8 0 0 1-8 8H20a8 8 0 0 1-8-8z" fill="#FFC2A8" ${STROKE}/><rect x="70" y="16" width="26" height="30" rx="4" fill="#fff" ${STROKE} transform="rotate(10 83 31)"/>${face(56,72,1.1)}<circle cx="96" cy="88" r="12" fill="#FF8DBE" ${STROKE}/><path d="M91 88l4 4 7-8" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>`,"Папка с документами"),
+  bulb:()=>svg(`<path d="M60 12a36 36 0 0 0-20 66v10h40V78A36 36 0 0 0 60 12z" fill="#FFE58F" ${STROKE}/><rect x="42" y="88" width="36" height="16" rx="6" fill="#C9B5FF" ${STROKE}/>${face(60,48,1)}<path d="M14 40l-8-4M106 40l8-4M20 16l-6-6M100 16l6-6" stroke="#FF8DBE" stroke-width="4" stroke-linecap="round"/>`,"Лампочка-идея"),
+  hearts:()=>svg(`<path d="M38 96 C10 76 8 52 22 42 c10-7 20-2 16 6 c4-8 16-12 24-4 c12 12 0 36-24 52z" fill="#FF8DBE" ${STROKE}/><path d="M82 100 C56 82 54 60 66 50 c9-7 18-2 15 5 c4-7 15-10 22-3 c10 11 0 32-21 48z" fill="#C9B5FF" ${STROKE}/>${face(38,64,.7)}${face(82,72,.7)}${spark(60,20,"#FFD966",8)}`,"Два сердечка"),
+  cloud:()=>svg(`<path d="M30 90a22 22 0 0 1-4-43 28 28 0 0 1 52-10 22 22 0 0 1 22 30 18 18 0 0 1-8 23z" fill="#8EE3C2" ${STROKE}/>${face(60,66,1.1)}<circle cx="96" cy="22" r="6" fill="#FFE58F" ${STROKE}/><circle cx="108" cy="10" r="3" fill="#FFE58F"/>${spark(16,24,"#FF8DBE")}`,"Мечтательное облачко"),
+  calc:()=>svg(`<rect x="24" y="10" width="72" height="100" rx="16" fill="#C9B5FF" ${STROKE}/><rect x="34" y="20" width="52" height="34" rx="8" fill="#fff" ${STROKE}/>${face(60,36,.75)}${[0,1,2].map(r=>[0,1,2].map(c=>`<rect x="${36+c*17}" y="${62+r*14}" width="13" height="10" rx="4" fill="${["#FF8DBE","#FFE58F","#8EE3C2"][(r+c)%3]}"/>`).join("")).join("")}${spark(108,28)}`,"Калькулятор"),
+  cycle:()=>svg(`<circle cx="60" cy="60" r="44" fill="none" stroke="#FF8DBE" stroke-width="8" stroke-dasharray="60 10" stroke-linecap="round"/><path d="M98 34l6 14-15-1" fill="#FF8DBE"/><circle cx="60" cy="60" r="28" fill="#FFE58F" ${STROKE}/>${face(60,58,.85)}<circle cx="16" cy="60" r="7" fill="#8EE3C2" ${STROKE}/><circle cx="104" cy="60" r="7" fill="#C9B5FF" ${STROKE}/>`,"Круговорот функций"),
+  planet:()=>svg(`<ellipse cx="60" cy="64" rx="56" ry="14" fill="none" stroke="#FF8DBE" stroke-width="6" transform="rotate(-14 60 64)"/><circle cx="60" cy="60" r="34" fill="#A9DBFF" ${STROKE}/><path d="M6 76 a56 14 -14 0 0 108 -26" fill="none" stroke="#FF8DBE" stroke-width="6" transform="rotate(0)" opacity="0"/>${face(60,60,1)}${spark(16,18)}${spark(104,104,"#8EE3C2",7)}${spark(108,16,"#C9B5FF",5)}`,"Планета-система"),
+  compass:()=>svg(`<circle cx="60" cy="62" r="46" fill="#8EE3C2" ${STROKE}/><circle cx="60" cy="62" r="36" fill="#fff"/><path d="M60 30 l7 20 h-14z" fill="#FF8DBE"/><path d="M60 94 l7 -20 h-14z" fill="#C9B5FF"/>${face(60,62,.85)}<rect x="54" y="8" width="12" height="10" rx="4" fill="#FFE58F" ${STROKE}/>`,"Компас"),
+  trophy:()=>svg(`<path d="M30 16h60v24a30 30 0 0 1-60 0z" fill="#FFE58F" ${STROKE}/><path d="M30 24H14a14 14 0 0 0 18 20M90 24h16a14 14 0 0 1-18 20" fill="none" ${STROKE}/><rect x="52" y="70" width="16" height="16" fill="#FFE58F" ${STROKE}/><rect x="34" y="86" width="52" height="20" rx="8" fill="#FF8DBE" ${STROKE}/>${face(60,38,.8)}${spark(14,96,"#C9B5FF",7)}${spark(106,96,"#8EE3C2",7)}`,"Кубок"),
+  briefcase:(m="happy")=>svg(`<rect x="44" y="18" width="32" height="18" rx="8" fill="none" ${STROKE}/><rect x="12" y="32" width="96" height="72" rx="18" fill="#FF8DBE" ${STROKE}/><rect x="12" y="56" width="96" height="6" fill="${INK}" opacity=".15"/>${face(60,72,1.2,m)}${spark(10,16,"#FFD966",8)}${spark(110,20,"#C9B5FF",6)}${spark(112,112,"#8EE3C2",6)}`,"Портфель-талисман"),
+  star:(m="happy")=>svg(`<path d="M60 8l14 30 32 4-24 22 6 32-28-16-28 16 6-32L14 42l32-4z" fill="#FFE58F" ${STROKE}/>${face(60,58,1,m)}${spark(14,100,"#FF8DBE",8)}${spark(108,104,"#8EE3C2",7)}`,"Звёздочка")
+};
+
+/* ---------- Questions: correct answers spread evenly (3×А, 3×Б, 3×В, 3×Г) ---------- */
+const Q = [
+ {art:"stopwatch",school:"Школа научного управления",era:"1885–1920",prompt:"Кто считается основоположником школы научного управления?",options:["Фредерик У. Тейлор","Анри Файоль","Элтон Мэйо","Макс Вебер"],correct:0,hint:"Он ходил по цехам с секундомером и замерял каждое движение рабочих.",explanation:"Ф. Тейлор в работе «Принципы научного управления» (1911) предложил научно изучать трудовые операции: хронометраж, стандартизацию методов, отбор и обучение рабочих, стимулирующую оплату."},
+ {art:"calendar",school:"Хронология школ по Мескону",era:"1885 — наши дни",prompt:"Какой период Мескон указывает для школы научного управления?",options:["1920–1950 гг.","1885–1920 гг.","1930–1950 гг.","С 1950 г. по настоящее время"],correct:1,hint:"Это самая ранняя школа: её расцвет пришёлся на рубеж XIX и XX веков.",explanation:"По Мескону: научное управление — 1885–1920 гг., административная школа — 1920–1950 гг., школа человеческих отношений — 1930–1950 гг., поведенческая и количественная школы — с 1950 г. по настоящее время."},
+ {art:"pyramid",school:"Административная (классическая) школа",era:"1920–1950",prompt:"Кто сформулировал 14 принципов управления и выделил основные функции управления?",options:["Фрэнк и Лилиан Гилбрет","Генри Гантт","Анри Файоль","Честер Барнард"],correct:2,hint:"Французский инженер, много лет руководил крупной горнодобывающей компанией.",explanation:"Анри Файоль — представитель административной школы. Он предложил 14 принципов управления (разделение труда, единоначалие, единство направления и др.) и рассматривал управление как совокупность функций."},
+ {art:"folder",school:"Классическая перспектива",era:"Конец XIX — начало XX в.",prompt:"Какой учёный разработал концепцию «идеальной бюрократии», основанной на правилах, иерархии и безличных отношениях?",options:["Абрахам Маслоу","Дуглас МакГрегор","Питер Друкер","Макс Вебер"],correct:3,hint:"Немецкий социолог, автор книги «Протестантская этика и дух капитализма».",explanation:"Макс Вебер описал бюрократическую организацию: чёткое разделение труда, иерархия полномочий, формальные правила, отбор по квалификации. Дафт относит его к классической перспективе."},
+ {art:"bulb",school:"Школа человеческих отношений",era:"1930–1950",prompt:"С какими исследованиями связано возникновение школы человеческих отношений?",options:["С изучением движений каменщиков","С Хоторнскими экспериментами под руководством Элтона Мэйо","С разработкой линейного программирования","С внедрением конвейера на заводах Форда"],correct:1,hint:"Исследователи меняли освещение в цехах, а производительность росла почти при любых изменениях.",explanation:"Хоторнские эксперименты (1924–1932) на заводе Western Electric показали, что на производительность сильно влияют внимание к работникам, групповые нормы и социальные отношения, а не только физические условия."},
+ {art:"hearts",school:"Школа человеческих отношений",era:"1930–1950",prompt:"Кому принадлежит определение менеджмента как «обеспечения выполнения работы с помощью других лиц»?",options:["Фредерику Тейлору","Генри Форду","Ренсису Лайкерту","Мэри Паркер Фоллет"],correct:3,hint:"Это женщина-исследователь, одна из первых, кто обратил внимание на человеческий фактор в управлении.",explanation:"Мэри Паркер Фоллет — одна из основоположниц школы человеческих отношений. Её определение менеджмента приводят и Дафт, и Мескон."},
+ {art:"cloud",school:"Школа поведенческих наук",era:"С 1950",prompt:"Какая концепция относится к школе поведенческих наук?",options:["Теория X и теория Y Дугласа МакГрегора","Диаграмма Ганта","Принцип единоначалия","Модель управления запасами"],correct:0,hint:"Две латинские буквы — два противоположных взгляда на работника.",explanation:"Теория X исходит из того, что работник ленив и нуждается в контроле, теория Y — что он способен к самоконтролю и ответственности. Поведенческая школа стремится помочь работнику раскрыть свои возможности и тем повысить эффективность организации."},
+ {art:"calc",school:"Школа количественных методов",era:"С 1950",prompt:"Что характерно для школы количественных методов (науки управления)?",options:["Акцент на неформальных группах","Разработка универсальных принципов администрирования","Использование математических моделей, статистики, исследования операций и ЭВМ для принятия решений","Изучение мотивации через иерархию потребностей"],correct:2,hint:"Её корни — в исследовании операций времён Второй мировой войны. Подумайте о цифрах и формулах.",explanation:"Количественная школа сложилась после Второй мировой войны. Её суть — замена словесных рассуждений моделями, символами и количественными показателями для обоснованного принятия решений."},
+ {art:"cycle",school:"Процессный подход",era:"Интегрирующие подходы",prompt:"Как процессный подход рассматривает управление?",options:["Как набор неизменных принципов, верных в любой ситуации","Как результат влияния внешней среды","Как решение математических задач","Как непрерывную серию взаимосвязанных управленческих функций"],correct:3,hint:"Ключевое слово — «процесс»: действия, которые следуют друг за другом и повторяются по кругу.",explanation:"Мескон выделяет четыре основные функции управления: планирование, организация, мотивация и контроль. Их объединяют связующие процессы — коммуникации и принятие решений."},
+ {art:"planet",school:"Системный подход",era:"Интегрирующие подходы",prompt:"С точки зрения системного подхода организация — это:",options:["Открытая система, взаимодействующая с внешней средой","Закрытая система, не зависящая от среды","Совокупность изолированных подразделений","Механизм, управляемый только по инструкциям"],correct:0,hint:"Вспомните про «входы» и «выходы»: организация что-то получает извне и что-то отдаёт обратно.",explanation:"Организация получает из среды ресурсы (входы), преобразует их и выдаёт продукцию (выходы). Она состоит из взаимосвязанных подсистем, и для неё характерна синергия: целое больше суммы частей."},
+ {art:"compass",school:"Ситуационный подход",era:"Интегрирующие подходы",prompt:"Какая идея является центральной для ситуационного подхода?",options:["Существует единственный лучший способ управления","Главное — забота о человеческих отношениях","Пригодность методов управления определяется конкретной ситуацией","Все решения должны приниматься с помощью компьютеров"],correct:2,hint:"Любимый ответ этого подхода на любой вопрос: «Всё зависит от…»",explanation:"Универсального лучшего способа управления нет: руководитель выбирает методы с учётом ситуационных переменных. Ситуационный подход развивает системный и объединяет идеи разных школ."},
+ {art:"trophy",school:"Современные концепции",era:"Конец XX в. — наши дни",prompt:"Какая современная концепция, описанная у Дафта, связана с именами Э. Деминга и Дж. Джурана?",options:["Бюрократическая организация","Всеобщее управление качеством (TQM)","Хронометраж трудовых операций","Теория иерархии потребностей"],correct:1,hint:"Аббревиатура из трёх английских букв, и речь в ней о качестве.",explanation:"TQM — всеобщее управление качеством: вовлечение сотрудников, ориентация на потребителя, бенчмаркинг и непрерывное совершенствование (кайдзен). Широко распространилась благодаря японскому опыту."}
+];
+const L = ["А","Б","В","Г"];
+const $ = id => document.getElementById(id);
+let i = 0, answers = [], name = "";
+
+$("heroArt").innerHTML = ART.briefcase();
+
+function buildProgress(){
+  $("progress").innerHTML = Q.map(()=>'<span class="dot"></span>').join("");
+  $("qtotal").textContent = Q.length;
+}
+function updateProgress(){
+  [...$("progress").children].forEach((d,k)=>{
+    d.className = "dot" + (answers[k]===undefined ? (k===i?" current":"") : (answers[k]===Q[k].correct?" ok":" bad"));
+  });
+}
+function render(){
+  const q = Q[i];
+  $("qnum").textContent = i+1;
+  $("eraText").textContent = q.era;
+  $("school").textContent = q.school;
+  $("prompt").textContent = q.prompt;
+  $("qArt").innerHTML = ART[q.art]();
+  $("qArt").firstChild.classList.add("pop");
+  $("options").innerHTML = "";
+  q.options.forEach((o,k)=>{
+    const b = document.createElement("button");
+    b.className = "opt";
+    b.innerHTML = '<span class="letter">'+L[k]+'</span><span></span>';
+    b.lastChild.textContent = o;
+    b.onclick = ()=>choose(k);
+    $("options").appendChild(b);
+  });
+  $("hint").classList.add("hidden");
+  $("hint").textContent = q.hint;
+  $("hintBtn").classList.remove("hidden");
+  $("feedback").classList.add("hidden");
+  $("nextBtn").classList.add("hidden");
+  $("nextBtn").textContent = i===Q.length-1 ? "Узнать результат" : "Дальше";
+  updateProgress();
+  $("prompt").setAttribute("tabindex","-1");
+  $("prompt").focus({preventScroll:true});
+}
+const GOOD=["Ура, верно!","Умничка, правильно!","Точно в цель!","Так держать!"];
+const BADT=["Ой, мимо!","Почти получилось!","Не в этот раз!"];
+function choose(k){
+  const q = Q[i];
+  answers[i] = k;
+  [...$("options").children].forEach((b,n)=>{
+    b.disabled = true;
+    if(n===q.correct) b.classList.add("correct");
+    else if(n===k) b.classList.add("wrong");
+    else b.classList.add("faded");
+  });
+  const ok = k===q.correct;
+  const fb = $("feedback");
+  fb.className = "feedback " + (ok?"good":"bad");
+  $("fbTitle").textContent = ok ? GOOD[i%GOOD.length] : BADT[i%BADT.length] + " Правильный ответ: " + L[q.correct] + ".";
+  $("fbText").textContent = q.explanation;
+  $("hintBtn").classList.add("hidden");
+  $("nextBtn").classList.remove("hidden");
+  updateProgress();
+  $("nextBtn").focus({preventScroll:true});
+}
+function showResult(){
+  $("quiz").classList.add("hidden");
+  $("result").classList.remove("hidden");
+  const s = answers.filter((a,k)=>a===Q[k].correct).length;
+  const p = s/Q.length;
+  $("resArt").innerHTML = p>=.5 ? ART.star("happy") : ART.star("wow");
+  $("resArt").firstChild.classList.add("pop");
+  $("resTitle").textContent = name ? name + ", ваш результат" : "Ваш результат";
+  $("score").innerHTML = s + ' <span>из ' + Q.length + '</span>';
+  $("verdict").textContent = p===1 ? "Безупречно! Все школы и подходы разложены по полочкам."
+    : p>=.75 ? "Отличный результат — материал усвоен уверенно."
+    : p>=.5 ? "Хорошая основа! Ниже — вопросы, к которым стоит вернуться."
+    : "Не беда! Загляните ещё раз в главы об эволюции управленческой мысли и попробуйте снова.";
+  $("review").innerHTML = "";
+  Q.forEach((q,k)=>{
+    const ok = answers[k]===q.correct;
+    const li = document.createElement("li");
+    if(!ok) li.className = "bad";
+    const qd = document.createElement("div"); qd.className="q"; qd.textContent = (k+1) + ". " + q.prompt;
+    const ad = document.createElement("div"); ad.className="a";
+    ad.textContent = ok ? "Верно: " + q.options[q.correct]
+      : "Ваш ответ: " + q.options[answers[k]] + ". Правильно: " + q.options[q.correct];
+    li.append(qd, ad);
+    $("review").appendChild(li);
+  });
+  window.scrollTo(0,0);
+}
+function start(){
+  i = 0; answers = [];
+  $("intro").classList.add("hidden");
+  $("result").classList.add("hidden");
+  $("quiz").classList.remove("hidden");
+  render(); window.scrollTo(0,0);
+}
+$("startBtn").onclick = ()=>{ name = $("name").value.trim(); start(); };
+$("name").addEventListener("keydown", e=>{ if(e.key==="Enter") $("startBtn").click(); });
+$("hintBtn").onclick = ()=>{ $("hint").classList.remove("hidden"); $("hintBtn").classList.add("hidden"); };
+$("nextBtn").onclick = ()=>{ if(i<Q.length-1){ i++; render(); window.scrollTo(0,0);} else showResult(); };
+$("againBtn").onclick = start;
+buildProgress();
+</script>
+</body>
+</html>
